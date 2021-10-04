@@ -30,7 +30,7 @@ function buildBoard() {
     for (var i = 0; i < gLevel.SIZE; i++) {
         board.push([]);
         for (var j = 0; j < gLevel.SIZE; j++) {
-            var cell = { minesAroundCount: 0, isShown: true, isMine: false, isMarked: false };
+            var cell = { minesAroundCount: 0, isShown: false, isMine: false, isMarked: false };
             if (i === 2 && j === 1) cell.isMine = true;
             if (i === 3 && j === 3) cell.isMine = true;
 
@@ -67,7 +67,15 @@ function setMinesNegsCount(board) {
 
 
 function cellClicked(elCell, i, j) {
-
+    var cell = gBoard[i][j];
+    cell.isShown = true;
+    elCell.classList.remove('hide');
+    if (cell.isMine){
+        renderCell({i: i, j: j}, MINE)
+    }else {
+        renderCell({i: i, j: j}, cell.minesAroundCount);
+        if (!cell.minesAroundCount) renderCell({i: i, j: j}, '');
+    }
 }
 
 
@@ -78,15 +86,15 @@ function renderBoard(board) {
         strHTML += '<tr>';
         for (var j = 0; j < board[0].length; j++) {
             var cell = board[i][j];
-            var className = `cell cell${i}-${j}`;
+            var className = `cell cell${i}-${j} hide`;
             className += (cell.isMine) ? 'mine' : '';
             strHTML += `<td class="${className}" onclick="cellClicked(this, ${i}, ${j})" >`
 
-            if (cell.isMine) {
-                strHTML += MINE;
-            }else {
-                strHTML += cell.minesAroundCount;
-            }
+            // if (cell.isMine) {
+            //     strHTML += MINE;
+            // }else {
+            //     strHTML += cell.minesAroundCount;
+            // }
 
             strHTML += '</td>';
         }
@@ -95,5 +103,5 @@ function renderBoard(board) {
     strHTML += '</tbody></table>';
     var elContainer = document.querySelector('.board-container');
     elContainer.innerHTML = strHTML;
-    // console.log('strHTML :>> ', strHTML);
+    console.log('strHTML :>> ', strHTML);
 }
