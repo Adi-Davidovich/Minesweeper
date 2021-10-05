@@ -8,10 +8,18 @@
     <title>Minesweeper</title>
   </head>
 
-  <body onload="init()">
-      <h1>Minesweeper</h1>
+  <body oncontextmenu onload="init()">
     <div class="box">
-        <div class="board-container"></div>
+      <header>Minesweeper</header>
+      <div>
+        easy: <button onclick="setLevel(4)" class="pickLevel"></button> 
+        medium: <button onclick="setLevel(8)" class="pickLevel"></button> 
+        hard: <button onclick="setLevel(12)" class="pickLevel"></button>
+      </div>
+      <button class="smiley" onclick="init()">😃</button>
+      <div>🚩: <span class="flag"></span></div>
+      <div>⏱: <span class="clock">0</span></div>
+      <div class="board-container"></div>
     </div>
     <script src="js/main.js"></script>
     <script src="js/utils.js"></script>

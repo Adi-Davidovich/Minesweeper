@@ -6,6 +6,11 @@ function renderCell(location, value) {
   elCell.innerHTML = value;
 }
 
+function renderElement(selector, value){
+  var elElement = document.querySelector(selector);
+  elElement.innerHTML = value;
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
