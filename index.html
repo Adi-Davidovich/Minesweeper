@@ -10,17 +10,26 @@
 
   <body oncontextmenu onload="init()">
     <div class="box">
-      <header>Minesweeper</header>
-      <div>
-        easy: <button onclick="setLevel(4)" class="pickLevel"></button> 
-        medium: <button onclick="setLevel(8)" class="pickLevel"></button> 
-        hard: <button onclick="setLevel(12)" class="pickLevel"></button>
+      <header><h1>Minesweeper</h1></header>
+      <div class="board">
+        <header class="board-header">
+          <div class="board-info">
+            <button onclick="setLevel(4)" class="pickLevel">easy</button>
+            <button onclick="setLevel(8)" class="pickLevel">medium</button>
+            <button onclick="setLevel(12)" class="pickLevel">hard</button>
+          </div>
+          <button class="smiley" onclick="init()">😃</button>
+          <div class="board-info">
+          <div class="info"><span>🚩</span><span class="flag"> </span></div>
+          <div class="info">⏱<span class="clock"> 0</span></div>
+        </div>
+        </header>
+        
+        <div class="table-container"></div>
+        <footer class="footer"></footer>
       </div>
-      <button class="smiley" onclick="init()">😃</button>
-      <div>🚩: <span class="flag"></span></div>
-      <div>⏱: <span class="clock">0</span></div>
-      <div class="board-container"></div>
     </div>
+    <footer class="main-footer">Created by Adi Davidovich</footer>
     <script src="js/main.js"></script>
     <script src="js/utils.js"></script>
   </body>

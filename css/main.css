@@ -1,29 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   text-align: center;
   font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  color: #a6abb1;
+  background-color: #6287a5;
 }
 
-table{
-    margin: 10px auto;
+.box {
+  max-width: 550px;
+  width: 100%;
+  padding: 0 8px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #202c3b;
+  display: block;
+  text-align: left;
+}
+
+.board {
+  display: block;
+  padding: 8px;
+  background-color: #cdd4de;
+  border-radius: 12px;
+  border-top: 2px solid #f5f6f8;
+  border-right: 2px solid #90949b;
+  border-bottom: 2px solid #7b7f85;
+  border-left: 2px solid #f0f2f5;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid #d2d5d8;
+  border-left: 2px solid #161f29;
+  border-top: 2px solid #131a23;
+  border-right: 2px solid #bcc0c4;
+  background-color: #202c3b;
+}
+
+.pickLevel {
+  display: flex;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #36414f;
+  color: white;
+  font-size: 12px;
+  align-items: center;
+  padding: 10px 5px;
+}
+
+.smiley {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  font-size: 30px;
+  cursor: pointer;
+  display: block;
+}
+
+.board-info {
+  display: flex;
+  color: #ffffff;
+  background-color: #36414f;
+  border-radius: 2px;
+  width: 170px;
+  height: 37px;
+  font-size: 20px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  width: 45px;
+  justify-content: space-between;
+}
+
+.table-container {
+  margin: auto;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 4px;
+  border-bottom: 2px solid #f5f6f8;
+  border-left: 2px solid #90949b;
+  border-top: 2px solid #7b7f85;
+  border-right: 2px solid #f0f2f5;
+  background-color: #c9d0da;
+}
+
+table {
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
 }
 
 .cell {
   width: 40px;
   height: 40px;
-  text-align: center;
-  background: purple;
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  background-color: #5e5f61;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.level {
-  margin: 15px auto;
-  max-width: 310px;
-  min-height: 20px;
-  border-radius: 10px;
-  padding: +10px;
-  background-color: rgb(199, 198, 198);
+.hide {
+  background-color: #cdd4de;
+  border-top: 2px solid #f5f6f8;
+  border-right: 2px solid #90949b;
+  border-bottom: 2px solid #7b7f85;
+  border-left: 2px solid #f0f2f5;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 2px;
 }
-.pickLevel {
-  height: 17px;
-  border-radius: 20px;
-  margin: 14px auto;
+
+.red{
+  background-color: #cb4040;
+}
+
+.footer{
+  display: block;
+  color: white;
+  background-color: #c9d0da;
+  padding: 20px;
+}
+.main-footer{
+  display: block;
+  color: #202c3b;
+  padding: 40px 0;
+  margin-top: 0px;
 }
