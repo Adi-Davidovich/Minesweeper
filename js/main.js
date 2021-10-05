@@ -16,7 +16,8 @@ var gGame = {
     isWin: null,
     correctCount: 0,
     markedCount: gLevel.MINES,
-    secsPassed: 0
+    secsPassed: 0,
+    lives: 3
 }
 
 var gIntervalSec;
@@ -30,6 +31,7 @@ function init() {
     gGame.isOn = true;
     gGame.isWin = null;
     gGame.correctCount = 0;
+    gGame.lives = 3;
     gGame.secsPassed = 0;
     renderElement('.clock', gGame.secsPassed);
     gGame.markedCount = gLevel.MINES;
@@ -65,9 +67,19 @@ function cellClicked(e, i, j) {
     elCell.classList.remove('hide')
     if (cell.isMine) {
         renderCell({ i: i, j: j }, MINE);
-        elCell.classList.add('red');
-        gGame.isWin = false;
-        checkGameOver();
+        gGame.lives--;
+        if (gGame.lives === 2){
+            document.querySelector('.two').classList.add('black');
+        }
+        if (gGame.lives === 1){
+            document.querySelector('.one').classList.add('black');
+        }
+        if (!gGame.lives){
+            elCell.classList.add('red');
+            document.querySelector('.zero').classList.add('black');
+            gGame.isWin = false;
+            checkGameOver();
+        }
     } else {
         gGame.correctCount++;
         renderCell({ i: i, j: j }, cell.minesAroundCount);

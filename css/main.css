@@ -133,19 +133,41 @@ table {
   padding: 2px;
 }
 
-.red{
+.red {
   background-color: #cb4040;
 }
 
-.footer{
+.footer {
   display: block;
   color: white;
   background-color: #c9d0da;
-  padding: 20px;
 }
-.main-footer{
+.main-footer {
   display: block;
   color: #202c3b;
   padding: 40px 0;
   margin-top: 0px;
+}
+
+.hearts-container {
+  display: flex;
+  color: #ffffff;
+  border-radius: 2px;
+  width: 170px;
+  height: 37px;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart{
+  display: flex;
+  align-items: center;
+  width: 60px;
+  justify-content: space-between;
+  color: #cb4040;
+}
+
+.black{
+  color: #ffffff;
 }
