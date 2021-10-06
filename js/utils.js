@@ -11,6 +11,10 @@ function renderElement(selector, value){
   elElement.innerHTML = value;
 }
 
+function addClass(selector, className){
+  document.querySelector(selector).classList.add(className);
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }

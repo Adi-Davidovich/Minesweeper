@@ -36,6 +36,7 @@ function init() {
     renderElement('.clock', gGame.secsPassed);
     gGame.markedCount = gLevel.MINES;
     renderElement('.flag', gGame.markedCount);
+    colorHearts();
 }
 
 
@@ -69,14 +70,14 @@ function cellClicked(e, i, j) {
         renderCell({ i: i, j: j }, MINE);
         gGame.lives--;
         if (gGame.lives === 2){
-            document.querySelector('.two').classList.add('black');
+            addClass('.two', 'black');
         }
         if (gGame.lives === 1){
-            document.querySelector('.one').classList.add('black');
+            addClass('.one', 'black');
         }
         if (!gGame.lives){
             elCell.classList.add('red');
-            document.querySelector('.zero').classList.add('black');
+            addClass('.zero', 'black');
             gGame.isWin = false;
             checkGameOver();
         }
@@ -225,7 +226,7 @@ function checkGameOver() {
 
 
 function revealMines(value) {
-    var elMines = document.querySelectorAll('.hide.mine');
+    var elMines = document.querySelectorAll('.mine');
     for (var i = 0; i < elMines.length; i++) {
         elMines[i].classList.remove('hide');
         elMines[i].innerHTML = value;
@@ -238,4 +239,11 @@ function updateSec() {
         gGame.secsPassed++;
         renderElement('.clock', gGame.secsPassed);
     }, 1000);
+}
+
+function colorHearts(){
+    var elHearts = document.querySelectorAll('.heart span');
+    for (var i = 0; i < elHearts.length; i++) {
+        elHearts[i].classList.remove('black');
+    }
 }
