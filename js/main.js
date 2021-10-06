@@ -37,6 +37,7 @@ function init() {
     gGame.markedCount = gLevel.MINES;
     renderElement('.flag', gGame.markedCount);
     colorHearts();
+    renderBestScore();
 }
 
 
@@ -64,28 +65,34 @@ function cellClicked(e, i, j) {
         addMines(gBoard, i, j);
         setMinesNegsCount(gBoard);
     }
-    cell.isShown = true;
     elCell.classList.remove('hide')
+
     if (cell.isMine) {
         renderCell({ i: i, j: j }, MINE);
         gGame.lives--;
-        if (gGame.lives === 2){
+        if (gGame.lives === 2) {
             addClass('.two', 'black');
+            renderElement('.smiley', '😯');
         }
-        if (gGame.lives === 1){
+        if (gGame.lives === 1) {
             addClass('.one', 'black');
+            renderElement('.smiley', '😰');
         }
-        if (!gGame.lives){
+        if (!gGame.lives) {
             elCell.classList.add('red');
             addClass('.zero', 'black');
             gGame.isWin = false;
             checkGameOver();
         }
     } else {
-        gGame.correctCount++;
-        renderCell({ i: i, j: j }, cell.minesAroundCount);
-        if (!cell.minesAroundCount) {
-            expandShown(gBoard, e, i, j);
+        if (cell.minesAroundCount) {
+            gGame.correctCount++;
+            cell.isShown = true;
+            renderCell({ i: i, j: j }, cell.minesAroundCount);
+            console.log('gGame.correctCount :>> ', gGame.correctCount, i, j);
+        }
+        else if (!cell.minesAroundCount) {
+            expandShown(gBoard, i, j);
             renderCell({ i: i, j: j }, '');
         }
     }
@@ -120,8 +127,11 @@ function cellMarked(e, i, j) {
 
 
 
-function expandShown(board, ev, iClicked, jClicked) {
+function expandShown(board, iClicked, jClicked) {
+    if (board[iClicked][jClicked].isShown) return;
+    gGame.correctCount++;
 
+    board[iClicked][jClicked].isShown = true;
     for (var i = iClicked - 1; i <= iClicked + 1; i++) {
         if (i < 0 || i > board.length - 1) continue;
         for (var j = jClicked - 1; j <= jClicked + 1; j++) {
@@ -134,8 +144,9 @@ function expandShown(board, ev, iClicked, jClicked) {
                 renderCell({ i: i, j: j }, cell.minesAroundCount);
             } else {
                 renderCell({ i: i, j: j }, '');
+                expandShown(board, i, j);
             }
-            if (!cell.isShown) gGame.correctCount++;
+            if (!cell.isShown) gGame.correctCount++;   
             cell.isShown = true;
             elCell.classList.remove('hide');
         }
@@ -200,6 +211,7 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             var cell = board[i][j];
             var className = `cell cell${i}-${j} hide`;
+            if (gLevel.SIZE > 4) className += ' resize';
             strHTML += `<td oncontextmenu="cellMarked(event, ${i}, ${j})" 
             class="${className}" onclick="cellClicked(event, ${i}, ${j})"> 
             </td>`;
@@ -217,6 +229,8 @@ function checkGameOver() {
     if (gGame.isWin) {
         renderElement('.smiley', '😎');
         revealMines(FLOWER);
+        setBestScore(gLevel.SIZE, gGame.secsPassed);
+        renderBestScore();
     }
     else {
         renderElement('.smiley', '😭');
@@ -224,6 +238,23 @@ function checkGameOver() {
     }
 }
 
+
+function setBestScore(size, score) {
+    var difficulty;
+    if (size === 4) {
+        difficulty = 'easy';
+    } else if (size === 8) {
+        difficulty = 'medium';
+    } else {
+        difficulty = 'hard';
+    }
+
+    var currentBestScore = localStorage.getItem(difficulty);
+
+    if (!currentBestScore || score < currentBestScore) {
+        localStorage.setItem(difficulty, score);
+    }
+}
 
 function revealMines(value) {
     var elMines = document.querySelectorAll('.mine');
@@ -241,9 +272,21 @@ function updateSec() {
     }, 1000);
 }
 
-function colorHearts(){
+function colorHearts() {
     var elHearts = document.querySelectorAll('.heart span');
     for (var i = 0; i < elHearts.length; i++) {
         elHearts[i].classList.remove('black');
     }
 }
+
+
+function renderBestScore() {
+    var easyScores = localStorage.getItem("easy");
+    var mediumScores = localStorage.getItem("medium");
+    var hardScores = localStorage.getItem("hard");
+
+    document.querySelector(".easy").innerText = easyScores;
+    document.querySelector(".medium").innerText = mediumScores;
+    document.querySelector(".hard").innerText = hardScores;
+}
+
